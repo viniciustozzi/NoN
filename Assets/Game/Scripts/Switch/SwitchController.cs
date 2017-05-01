@@ -102,6 +102,8 @@ public class SwitchController : MonoBehaviour
     {
         turned = !turned;
 
+
+
         if (turned)
         {
             if (GameController.lastSwitch != null && !dontChangeLast)
