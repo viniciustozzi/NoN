@@ -11,6 +11,7 @@ public class MenuController : MonoBehaviour
     public Image imgLogo;
     public Text text;
     public AudioClip playSound;
+    public AudioClip logoOn;
 
     private AudioSource mAudioSource;
 
@@ -26,6 +27,7 @@ public class MenuController : MonoBehaviour
 
     public void highlight()
     {
+        mAudioSource.PlayOneShot(logoOn);
         imgLogo.sprite = brilha;
         Invoke("showText", 0.8f);
     }
@@ -47,7 +49,6 @@ public class MenuController : MonoBehaviour
 
     public void GoToGame()
     {
-
         SceneManager.LoadScene("TestScene");
     }
 }
