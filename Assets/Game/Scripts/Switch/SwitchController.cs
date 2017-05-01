@@ -113,7 +113,6 @@ public class SwitchController : MonoBehaviour
 
             mAudioSource.clip = switchOnAudio;
             mAudioSource.Play();
-
         }
         else
         {

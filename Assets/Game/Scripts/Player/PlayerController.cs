@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
     public float speed, jumpForce;
     public Transform groundCheck;
@@ -10,17 +11,19 @@ public class PlayerController : MonoBehaviour {
 
     private Animator m_anim;
     private Rigidbody2D m_rig;
-    
-	void Start () {
+
+    void Start()
+    {
 
         m_anim = GetComponent<Animator>();
         m_rig = GetComponent<Rigidbody2D>();
-		
-	}
-	
+
+    }
+
     private void FixedUpdate()
     {
         m_rig.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, m_rig.velocity.y);
+        m_anim.SetFloat("Speed", m_rig.velocity.magnitude);
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -40,7 +43,7 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if (collision.tag == "Switch")
             {
@@ -52,7 +55,7 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.transform.tag == "Platform")
+        if (collision.transform.tag == "Platform")
         {
             transform.SetParent(collision.transform);
         }
@@ -60,7 +63,7 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if(collision.transform.tag == "Platform")
+        if (collision.transform.tag == "Platform")
         {
             transform.SetParent(null);
         }
