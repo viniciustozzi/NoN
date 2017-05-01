@@ -7,10 +7,11 @@ public class SwitchController : MonoBehaviour {
     public GameObject[] turnOn;
     public GameObject[] turnOff;
     public float speed;
+    public bool button, starton, dontChangeLast;
 
-    public bool on, off, turned;
-    public List<SpriteRenderer> spritesNeon = new List<SpriteRenderer>();
-    public List<SpriteRenderer> spritesNeoff = new List<SpriteRenderer>();
+    private bool on, off, turned;
+    private List<SpriteRenderer> spritesNeon = new List<SpriteRenderer>();
+    private List<SpriteRenderer> spritesNeoff = new List<SpriteRenderer>();
 
 	// Use this for initialization
 	void Start () {
@@ -24,7 +25,7 @@ public class SwitchController : MonoBehaviour {
 
         if(on)
         {
-            for (int i = 0, j = 0; i < spritesNeon.Count || j < spritesNeoff.Count ; i++, j++)
+            for (int i = 0; i < spritesNeon.Count || i < spritesNeoff.Count ; i++)
             {
                 if (i < spritesNeon.Count)
                 {
@@ -33,15 +34,20 @@ public class SwitchController : MonoBehaviour {
                     if (spritesNeon[i].color.a >= 1)
                     {
                         on = false;
-                        DesligarOff();
                     }
                 }
 
-                if (j < spritesNeoff.Count)
+                if (i < spritesNeoff.Count)
                 {
                     spritesNeoff[i].color -= new Color(0, 0, 0, speed * Time.deltaTime);
+
+                    if (spritesNeoff[i].color.a > 0)
+                        on = true;
                 }
             }
+
+            if(!on)
+                DesligarOff();
         }
 
         else if(off)
@@ -89,7 +95,7 @@ public class SwitchController : MonoBehaviour {
 
         if (turned)
         {
-            if (GameController.lastSwitch != null)
+            if (GameController.lastSwitch != null && !dontChangeLast)
                 GameController.lastSwitch.TurnOff();
 
             GameController.lastSwitch = this;
@@ -112,10 +118,13 @@ public class SwitchController : MonoBehaviour {
             foreach (SpriteRenderer s in spriteToAdd)
             {
                 spritesNeon.Add(s);
-                s.color = new Color(s.color.r, s.color.g, s.color.b, 0);
+
+                if (!starton)
+                    s.color = new Color(s.color.r, s.color.g, s.color.b, 0);
             }
 
-            t.SetActive(false);
+            if (!starton)
+                t.SetActive(false);
         }
 
 

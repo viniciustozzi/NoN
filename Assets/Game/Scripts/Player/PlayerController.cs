@@ -33,7 +33,8 @@ public class PlayerController : MonoBehaviour {
         if (Physics2D.Linecast(transform.position, groundCheck.position, layer))
         {
             transform.SetParent(null);
-            m_rig.AddForce(transform.up * jumpForce);
+            //m_rig.AddForce(transform.up * jumpForce);
+            m_rig.velocity = new Vector2(m_rig.velocity.x, jumpForce);
         }
     }
 
@@ -43,6 +44,7 @@ public class PlayerController : MonoBehaviour {
         {
             if (collision.tag == "Switch")
             {
+                transform.SetParent(null);
                 collision.GetComponent<SwitchController>().TurnOn();
             }
         }
