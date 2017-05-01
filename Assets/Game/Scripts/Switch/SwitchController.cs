@@ -114,7 +114,7 @@ public class SwitchController : MonoBehaviour
             mAudioSource.clip = switchOnAudio;
             mAudioSource.Play();
         }
-        else
+        else if (!button && !turned)
         {
             GameController.lastSwitch = null;
             off = true;
@@ -158,6 +158,7 @@ public class SwitchController : MonoBehaviour
 
     public void TurnOff()
     {
+        turned = false;
         off = true;
     }
 }
