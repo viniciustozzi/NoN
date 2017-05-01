@@ -122,6 +122,7 @@ public class SwitchController : MonoBehaviour
             mAudioSource.clip = switchOffAudio;
             mAudioSource.Play();
         }
+
     }
 
     public void FillSprite()
