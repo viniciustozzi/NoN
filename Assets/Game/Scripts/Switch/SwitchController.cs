@@ -8,10 +8,11 @@ public class SwitchController : MonoBehaviour
     public GameObject[] turnOn;
     public GameObject[] turnOff;
     public float speed;
-    public bool button, starton, dontChangeLast;
+    public bool button, starton, dontChangeLast, endSwitch;
     public AudioClip switchOnAudio;
     public AudioClip switchOffAudio;
     public Transform player;
+    public Animator animEnd;
 
     private bool on, off, turned;
     private List<SpriteRenderer> spritesNeon = new List<SpriteRenderer>();
@@ -105,27 +106,35 @@ public class SwitchController : MonoBehaviour
 
         player.GetComponent<DeathBehaviour>().returnSpawn = transform;
 
-        if (turned)
+        if (!endSwitch)
         {
-            if (GameController.lastSwitch != null && !dontChangeLast)
-                GameController.lastSwitch.TurnOff();
 
-            GameController.lastSwitch = this;
-            on = true;
-            Ligar();
+            if (turned)
+            {
+                if (GameController.lastSwitch != null && !dontChangeLast)
+                    GameController.lastSwitch.TurnOff();
 
-            mAudioSource.clip = switchOnAudio;
-            mAudioSource.Play();
+                GameController.lastSwitch = this;
+                on = true;
+                Ligar();
+
+                mAudioSource.clip = switchOnAudio;
+                mAudioSource.Play();
+            }
+            else if (!button && !turned)
+            {
+                GameController.lastSwitch = null;
+                off = true;
+
+                mAudioSource.clip = switchOffAudio;
+                mAudioSource.Play();
+            }
         }
-        else if (!button && !turned)
+
+        else
         {
-            GameController.lastSwitch = null;
-            off = true;
-
-            mAudioSource.clip = switchOffAudio;
-            mAudioSource.Play();
+            animEnd.SetTrigger("End");
         }
-
     }
 
     public void FillSprite()
