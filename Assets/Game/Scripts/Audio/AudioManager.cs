@@ -34,7 +34,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    void Awake()
     {
         mAudioSource = FindObjectOfType<AudioSource>();
 
@@ -51,9 +51,11 @@ public class AudioManager : MonoBehaviour
         mAudioSource.Play();
     }
 
-    public void PlayFirstPart1()
+    public AudioClip PlayFirstPart1()
     {
+        Debug.Log(mAudioSource == null);
         mAudioSource.PlayOneShot(firstPart1);
+        return firstPart1;
     }
 
     public void PlayFirstPart2()
@@ -81,4 +83,15 @@ public class AudioManager : MonoBehaviour
         mAudioSource.loop = true;
         mAudioSource.Play();
     }
+
+    #region TESTE!!!!
+
+
+    //private void Update()
+    //{
+      
+    //}
+
+
+    #endregion
 }
