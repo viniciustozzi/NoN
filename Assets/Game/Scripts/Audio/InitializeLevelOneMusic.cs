@@ -2,9 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InitializeLevelOneMusic : MonoBehaviour {
+public class InitializeLevelOneMusic : MonoBehaviour
+{
 
     void Start()
+    {
+        int rdm = Random.RandomRange(0, 3);
+
+
+        switch (rdm)
+        {
+            case 0:
+                PlayFirst();
+                break;
+
+            case 1:
+                AudioManager.Instance.PlaySecondPart();
+                break;
+
+            case 2:
+                AudioManager.Instance.PlayThirdPart();
+                break;
+        }
+    }
+
+    public void PlayFirst()
     {
         AudioClip clip = AudioManager.Instance.PlayFirstPart1();
 
