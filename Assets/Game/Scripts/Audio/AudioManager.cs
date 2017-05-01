@@ -68,11 +68,13 @@ public class AudioManager : MonoBehaviour
 
     public void PlayFirstPart3()
     {
+        mAudioSource.Stop();
         mAudioSource.PlayOneShot(firstPart3);
     }
 
     public void PlaySecondPart()
     {
+        mAudioSource.Stop();
         mAudioSource.clip = secondPart;
         mAudioSource.loop = true;
         mAudioSource.Play();
@@ -80,6 +82,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayThirdPart()
     {
+        mAudioSource.Stop();
         mAudioSource.clip = thirdPart;
         mAudioSource.loop = true;
         mAudioSource.Play();

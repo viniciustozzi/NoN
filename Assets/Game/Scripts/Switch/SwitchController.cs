@@ -2,30 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwitchController : MonoBehaviour {
+public class SwitchController : MonoBehaviour
+{
 
     public GameObject[] turnOn;
     public GameObject[] turnOff;
     public float speed;
     public bool button, starton, dontChangeLast;
 
+    public AudioClip switchOnAudio;
+    public AudioClip switchOffAudio;
+
     private bool on, off, turned;
     private List<SpriteRenderer> spritesNeon = new List<SpriteRenderer>();
     private List<SpriteRenderer> spritesNeoff = new List<SpriteRenderer>();
 
-	// Use this for initialization
-	void Start () {
+    private AudioSource mAudioSource;
+
+    // Use this for initialization
+    void Start()
+    {
 
         FillSprite();
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
 
-        if(on)
+        mAudioSource = GetComponent<AudioSource>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (on)
         {
-            for (int i = 0; i < spritesNeon.Count || i < spritesNeoff.Count ; i++)
+            for (int i = 0; i < spritesNeon.Count || i < spritesNeoff.Count; i++)
             {
                 if (i < spritesNeon.Count)
                 {
@@ -46,24 +55,24 @@ public class SwitchController : MonoBehaviour {
                 }
             }
 
-            if(!on)
+            if (!on)
                 DesligarOff();
         }
 
-        else if(off)
+        else if (off)
         {
-            foreach(SpriteRenderer s in spritesNeon)
+            foreach (SpriteRenderer s in spritesNeon)
             {
                 s.color -= new Color(0, 0, 0, speed * Time.deltaTime);
 
-                if(s.color.a <= 0)
+                if (s.color.a <= 0)
                 {
                     off = false;
                     DesligarOn();
                 }
             }
         }
-	}
+    }
 
     public void DesligarOn()
     {
@@ -101,11 +110,18 @@ public class SwitchController : MonoBehaviour {
             GameController.lastSwitch = this;
             on = true;
             Ligar();
+
+            mAudioSource.clip = switchOnAudio;
+            mAudioSource.Play();
+
         }
         else
         {
             GameController.lastSwitch = null;
             off = true;
+
+            mAudioSource.clip = switchOffAudio;
+            mAudioSource.Play();
         }
     }
 
@@ -138,7 +154,7 @@ public class SwitchController : MonoBehaviour {
             }
         }
     }
-    
+
 
     public void TurnOff()
     {
