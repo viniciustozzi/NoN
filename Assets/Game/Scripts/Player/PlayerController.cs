@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private bool facingRight;
 
     private AudioSource mAudioSource;
+    private bool isJumping;
 
     void Start()
     {
@@ -29,6 +30,9 @@ public class PlayerController : MonoBehaviour
 
         m_rig.velocity = new Vector2(hAxis * speed, m_rig.velocity.y);
         m_anim.SetFloat("Speed", m_rig.velocity.magnitude);
+        m_anim.SetBool("Jump", isJumping);
+
+        Debug.Log(isJumping);
 
         if (hAxis < 0 && !facingRight)
             Flip();
@@ -42,7 +46,6 @@ public class PlayerController : MonoBehaviour
                 mAudioSource.clip = walkingSound;
                 mAudioSource.Play();
             }
-
         }
 
         if (Input.GetButtonDown("Jump") && CheckGround())
@@ -54,14 +57,15 @@ public class PlayerController : MonoBehaviour
     private bool CheckGround()
     {
         return Physics2D.Linecast(transform.position, groundCheck.position, layer);
-        
     }
 
     private void Jump()
     {
+        isJumping = true;
         transform.SetParent(null);
         m_rig.velocity = new Vector2(m_rig.velocity.x, jumpForce);
     }
+
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -83,8 +87,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Ground" || collision.transform.tag == "Platform")
+        {
+            isJumping = false;
+        }
+    }
+
     private void OnCollisionExit2D(Collision2D collision)
     {
+
         if (collision.transform.tag == "Platform")
         {
             transform.SetParent(null);
