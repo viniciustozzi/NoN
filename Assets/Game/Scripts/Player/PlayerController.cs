@@ -9,13 +9,14 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
     public LayerMask layer;
     public AudioClip walkingSound;
+    public GameObject inBlack, outBlack;
 
     private Animator m_anim;
     private Rigidbody2D m_rig;
     private bool facingRight;
 
     private AudioSource mAudioSource;
-    private bool isJumping;
+    private bool isJumping, isOut;
 
     void Start()
     {
@@ -66,7 +67,6 @@ public class PlayerController : MonoBehaviour
         m_rig.velocity = new Vector2(m_rig.velocity.x, jumpForce);
     }
 
-
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -101,6 +101,27 @@ public class PlayerController : MonoBehaviour
         if (collision.transform.tag == "Platform")
         {
             transform.SetParent(null);
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.transform.tag == "Door")
+        {
+            isOut = !isOut;
+
+            if (isOut)
+            {
+                inBlack.SetActive(true);
+                outBlack.SetActive(false);
+            }
+
+            else
+            {
+                inBlack.SetActive(false);
+                outBlack.SetActive(true);
+            }
         }
     }
 

@@ -9,9 +9,9 @@ public class SwitchController : MonoBehaviour
     public GameObject[] turnOff;
     public float speed;
     public bool button, starton, dontChangeLast;
-
     public AudioClip switchOnAudio;
     public AudioClip switchOffAudio;
+    public Transform player;
 
     private bool on, off, turned;
     private List<SpriteRenderer> spritesNeon = new List<SpriteRenderer>();
@@ -22,6 +22,7 @@ public class SwitchController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
 
         FillSprite();
 
@@ -102,7 +103,7 @@ public class SwitchController : MonoBehaviour
     {
         turned = !turned;
 
-
+        player.GetComponent<DeathBehaviour>().returnSpawn = transform;
 
         if (turned)
         {
