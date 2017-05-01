@@ -36,7 +36,7 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
-        mAudioSource = FindObjectOfType<AudioSource>();
+        mAudioSource = GetComponent<AudioSource>();
 
         if (mAudioSource == null)
             mAudioSource = gameObject.AddComponent<AudioSource>();

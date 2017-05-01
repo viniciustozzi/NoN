@@ -32,8 +32,6 @@ public class PlayerController : MonoBehaviour
         m_anim.SetFloat("Speed", m_rig.velocity.magnitude);
         m_anim.SetBool("Jump", isJumping);
 
-        Debug.Log(isJumping);
-
         if (hAxis < 0 && !facingRight)
             Flip();
         else if (hAxis > 0 && facingRight)
