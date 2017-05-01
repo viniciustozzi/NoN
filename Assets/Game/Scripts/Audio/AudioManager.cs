@@ -54,6 +54,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip PlayFirstPart1()
     {
         mAudioSource.Stop();
+        mAudioSource.volume = 0.7f;
         mAudioSource.PlayOneShot(firstPart1);
         return firstPart1;
     }
@@ -61,6 +62,7 @@ public class AudioManager : MonoBehaviour
     public void PlayFirstPart2()
     {
         mAudioSource.Stop();
+        mAudioSource.volume = 0.7f;
         mAudioSource.clip = firstPart2;
         mAudioSource.loop = true;
         mAudioSource.Play();
@@ -69,12 +71,14 @@ public class AudioManager : MonoBehaviour
     public void PlayFirstPart3()
     {
         mAudioSource.Stop();
+        mAudioSource.volume = 0.4f;
         mAudioSource.PlayOneShot(firstPart3);
     }
 
     public void PlaySecondPart()
     {
         mAudioSource.Stop();
+        mAudioSource.volume = 0.7f;
         mAudioSource.clip = secondPart;
         mAudioSource.loop = true;
         mAudioSource.Play();
@@ -83,6 +87,7 @@ public class AudioManager : MonoBehaviour
     public void PlayThirdPart()
     {
         mAudioSource.Stop();
+        mAudioSource.volume = 0.7f;
         mAudioSource.clip = thirdPart;
         mAudioSource.loop = true;
         mAudioSource.Play();
@@ -93,7 +98,7 @@ public class AudioManager : MonoBehaviour
 
     //private void Update()
     //{
-      
+
     //}
 
 
