@@ -53,13 +53,14 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip PlayFirstPart1()
     {
-        Debug.Log(mAudioSource == null);
+        mAudioSource.Stop();
         mAudioSource.PlayOneShot(firstPart1);
         return firstPart1;
     }
 
     public void PlayFirstPart2()
     {
+        mAudioSource.Stop();
         mAudioSource.clip = firstPart2;
         mAudioSource.loop = true;
         mAudioSource.Play();
